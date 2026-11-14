@@ -129,9 +129,11 @@ map.on('load', async () => {
     .domain([0, d3.max(stations, (d) => d.totalTraffic)])
     .range([0, 25]);
 
-  const svg = d3.select('#map').select('svg');
+    let stationFlow = d3.scaleQuantize().domain([0, 1]).range([0, 0.5, 1]);
+  
+    const svg = d3.select('#map').select('svg');
 
-  const circles = svg
+    const circles = svg
     .selectAll('circle')
     .data(stations, (d) => d.short_name)
     .enter()
@@ -143,7 +145,10 @@ map.on('load', async () => {
         .text(
           `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
         );
-    });
+    })
+    .style('--departure-ratio', (d) =>
+      stationFlow(d.totalTraffic ? d.departures / d.totalTraffic : 0.5),
+    );
 
   function updatePositions() {
     circles
@@ -177,7 +182,10 @@ map.on('load', async () => {
           .text(
             `${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`,
           );
-      });
+      })
+      .style('--departure-ratio', (d) =>
+        stationFlow(d.totalTraffic ? d.departures / d.totalTraffic : 0.5),
+      );
   }
 
   function updateTimeDisplay() {

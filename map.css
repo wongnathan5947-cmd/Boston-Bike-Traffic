@@ -24,9 +24,48 @@ body {
     pointer-events: none;
   }
 
-#map svg circle {
-    fill: rgb(209, 130, 41);
+  #map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-balanced: seagreen;
+  --color-arrivals: darkorange;
+
+  --color: color-mix(
+    in oklch,
+    var(--color-arrivals) calc(max(0, 1 - 2 * var(--departure-ratio)) * 100%),
+    color-mix(
+      in oklch,
+      var(--color-departures) calc(max(0, 2 * var(--departure-ratio) - 1) * 100%),
+      var(--color-balanced)
+    )
+  );
+}
+  
+  #map svg circle {
+    fill: var(--color);
     fill-opacity: 0.6;
     stroke: white;
     pointer-events: auto;
+  }
+  
+  .legend {
+    display: flex;
+    gap: 1px;
+    margin-block: 1em;
+  }
+  
+  .legend > div {
+    flex: 1;
+    padding: 0.5em 2em;
+    background: var(--color);
+    color: white;
+    text-align: center;
+  }
+  
+  .legend > div:first-child {
+    text-align: left;
+  }
+  
+  .legend > div:last-child {
+    text-align: right;
   }

@@ -11,12 +11,13 @@ body {
 
   header {
     display: flex;
-    gap: 1em;
-    align-items: baseline;
+    flex-direction: column;   
+    align-items: center;     
+    gap: 0.5em;
   }
   
   header label {
-    margin-left: auto;
+    margin-left: 0;       
   }
   
   header time,
