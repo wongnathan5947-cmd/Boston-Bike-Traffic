@@ -8,24 +8,38 @@ body {
     margin: auto;
     padding: 1em;
   }
-
+  
   header {
     display: flex;
-    flex-direction: column;   
-    align-items: center;     
+    flex-direction: column;
+    align-items: center;
     gap: 0.5em;
   }
   
   header label {
-    margin-left: 0;       
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    width: 100%;
+    max-width: 40em;   
+    margin-left: 0;
+  }
+  
+  header input[type='range'] {
+    flex: 1;        
   }
   
   header time,
   header em {
     display: block;
+    min-width: 6em;   
   }
   
   header em {
     color: #777;
     font-style: italic;
+  }
+
+  header input[type='range'] {
+    width: 400px;   
   }
